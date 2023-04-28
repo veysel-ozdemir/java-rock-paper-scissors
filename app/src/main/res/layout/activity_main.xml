@@ -88,23 +88,25 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textViewEnemyChoice"
+        <ImageView
+            android:id="@+id/imageViewEnemyChoice"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="40sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:src="@drawable/bluepill"/>
 
-        <TextView
-            android:id="@+id/textViewMyChoice"
+        <ImageView
+            android:id="@+id/imageViewMyChoice"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="40sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:src="@drawable/redpill"/>
     </LinearLayout>
 
     <LinearLayout
@@ -113,35 +115,41 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/buttonRock"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:contentDescription="@string/app_name"
             android:onClick="buttonClick"
+            android:src="@drawable/rock"
             android:text="ROCK"
             android:textSize="20sp"
             app:cornerRadius="60dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/buttonPaper"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:contentDescription="@string/app_name"
             android:onClick="buttonClick"
+            android:src="@drawable/paper"
             android:text="PAPER"
             android:textSize="20sp"
             app:cornerRadius="60dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/buttonScissor"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:contentDescription="@string/app_name"
             android:onClick="buttonClick"
+            android:src="@drawable/scissor"
             android:text="SCISSOR"
             android:textSize="20sp"
             app:cornerRadius="60dp" />
