@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
                 myScore = 0;
                 enemy_score.setText("0");
                 my_score.setText("0");
-                enemy_choice.setImageResource(R.drawable.bluepill);
-                my_choice.setImageResource(R.drawable.redpill);
+                enemy_choice.setImageResource(R.drawable.herobrine);
+                my_choice.setImageResource(R.drawable.steve);
             }
         });
         button_exit.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         if(enemyScore == win)
         {
-            dialog.setIcon(R.drawable.herobrine);
+            dialog.setIcon(R.drawable.herobrine_face);
             dialog.setTitle("UNFORTUNATELY, YOU LOST!");
             dialog.setMessage("Enemy Score: "+enemyScore+"\nYour Score: "+myScore+"\nWanna take revenge?");
             dialog.setCancelable(false);
@@ -121,8 +121,8 @@ public class MainActivity extends AppCompatActivity {
                     myScore = 0;
                     enemy_score.setText("0");
                     my_score.setText("0");
-                    enemy_choice.setImageResource(R.drawable.bluepill);
-                    my_choice.setImageResource(R.drawable.redpill);
+                    enemy_choice.setImageResource(R.drawable.herobrine);
+                    my_choice.setImageResource(R.drawable.steve);
                 }
             });
             dialog.setNegativeButton("NOPE", new DialogInterface.OnClickListener() {
@@ -146,8 +146,8 @@ public class MainActivity extends AppCompatActivity {
                     myScore = 0;
                     enemy_score.setText("0");
                     my_score.setText("0");
-                    enemy_choice.setImageResource(R.drawable.bluepill);
-                    my_choice.setImageResource(R.drawable.redpill);
+                    enemy_choice.setImageResource(R.drawable.herobrine);
+                    my_choice.setImageResource(R.drawable.steve);
                 }
             });
             dialog.setNegativeButton("NEXT TIME", new DialogInterface.OnClickListener() {
