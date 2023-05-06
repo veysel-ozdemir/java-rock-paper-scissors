@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -19,12 +20,16 @@ public class MainActivity extends AppCompatActivity {
     ImageButton button_rock, button_paper, button_scissor;
     Button button_restart, button_exit;
     int enemyScore = 0, myScore = 0, win = 10;
+    AlertDialog.Builder dialog;
+    LayoutInflater inflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        dialog = new AlertDialog.Builder(this);
+        inflater = LayoutInflater.from(this);
         enemy_score = findViewById(R.id.textViewEnemyScore);
         my_score = findViewById(R.id.textViewMyScore);
         enemy_choice = findViewById(R.id.imageViewEnemyChoice);
@@ -38,18 +43,13 @@ public class MainActivity extends AppCompatActivity {
         button_restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enemyScore = 0;
-                myScore = 0;
-                enemy_score.setText("0");
-                my_score.setText("0");
-                enemy_choice.setImageResource(R.drawable.herobrine);
-                my_choice.setImageResource(R.drawable.steve);
+                restartMessage();
             }
         });
         button_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.exit(0);
+                exitMessage();
             }
         });
     }
@@ -92,29 +92,80 @@ public class MainActivity extends AppCompatActivity {
                 (enemyChoice == 2 && myChoice == 1) ||
                 (enemyChoice == 3 && myChoice == 2))
         {
-            enemyScore++;
-            enemy_score.setText(String.valueOf(enemyScore));
+            enemy_score.setText(String.valueOf(++enemyScore));
         }
         else
         {
-            myScore++;
-            my_score.setText(String.valueOf(myScore));
+            my_score.setText(String.valueOf(++myScore));
         }
         if(enemyScore == win || myScore == win)
         {
-            alertMessage();
+            informMessage();
         }
     }
 
-    public void alertMessage() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+    public void restartMessage() {
+        dialog.setIcon(R.drawable.restart_icon);
+        dialog.setTitle("RESTART THE GAME");
+        dialog.setMessage("Are you sure you want to restart the game?");
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                enemyScore = 0;
+                myScore = 0;
+                enemy_score.setText("0");
+                my_score.setText("0");
+                enemy_choice.setImageResource(R.drawable.herobrine);
+                my_choice.setImageResource(R.drawable.steve);
+            }
+        });
+        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    public void exitMessage() {
+        dialog.setIcon(R.drawable.exit_icon);
+        dialog.setTitle("EXIT THE GAME");
+        dialog.setMessage("Are you sure you want to exit the game?");
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.exit(0);
+            }
+        });
+        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    public void informMessage() {
+        View view = inflater.inflate(R.layout.inform_layout, null);
+        ImageView icon = view.findViewById(R.id.imageViewIcon);
+        TextView me_txt = view.findViewById(R.id.textViewMyScore);
+        TextView enemy_txt = view.findViewById(R.id.textViewEnemyScore);
+        TextView question_txt = view.findViewById(R.id.textViewQuestion);
+        dialog.setView(view);
+
         if(enemyScore == win)
         {
-            dialog.setIcon(R.drawable.herobrine_face);
             dialog.setTitle("UNFORTUNATELY, YOU LOST!");
-            dialog.setMessage("Enemy Score: "+enemyScore+"\nYour Score: "+myScore+"\nWanna take revenge?");
+            icon.setImageResource(R.drawable.rip);
+            enemy_txt.setText("Enemy Score:\n"+enemyScore);
+            me_txt.setText("Your Score:\n"+myScore);
+            question_txt.setText("Wanna take revenge?");
             dialog.setCancelable(false);
-            dialog.setPositiveButton("LET'S DO IT!", new DialogInterface.OnClickListener() {
+            dialog.setPositiveButton("YES!", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     enemyScore = 0;
@@ -125,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                     my_choice.setImageResource(R.drawable.steve);
                 }
             });
-            dialog.setNegativeButton("NOPE", new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     System.exit(0);
@@ -135,9 +186,11 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
-            dialog.setIcon(R.drawable.trophy);
             dialog.setTitle("CONGRATS, YOU WON!");
-            dialog.setMessage("Enemy Score: "+enemyScore+"\nYour Score: "+myScore+"\nWanna win one more time?");
+            icon.setImageResource(R.drawable.trophy);
+            enemy_txt.setText("Enemy Score:\n"+enemyScore);
+            me_txt.setText("Your Score:\n"+myScore);
+            question_txt.setText("Wanna win one more time?");
             dialog.setCancelable(false);
             dialog.setPositiveButton("SURE!", new DialogInterface.OnClickListener() {
                 @Override
@@ -150,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                     my_choice.setImageResource(R.drawable.steve);
                 }
             });
-            dialog.setNegativeButton("NEXT TIME", new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     System.exit(0);

@@ -94,8 +94,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="40sp"
-            android:textStyle="bold"
             android:src="@drawable/herobrine"/>
 
         <ImageView
@@ -104,8 +102,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="40sp"
-            android:textStyle="bold"
             android:src="@drawable/steve"/>
     </LinearLayout>
 
